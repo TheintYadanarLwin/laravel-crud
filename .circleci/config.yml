@@ -35,7 +35,6 @@ jobs:
       - run:
           name: "Create environment file"
           command: |
-            cd backend
             cp .env.example .env
             php artisan key:generate
             
