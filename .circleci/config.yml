@@ -9,7 +9,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/php:8.1.11
+      - image: cimg/base:stable
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -17,25 +17,7 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-      - run: php --version
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "composer.json" }}
-            - v1-dependencies-
-      - run:
-          name: "Install dependencies"
-          command: |
-            composer update
-      - save_cache:
-          key: v1-dependencies-{{ checksum "composer.json" }}
-          paths: 
-            - ./vendor
-      - run:
-          name: "Create environment file"
-          command: |
-            cp .env.example .env
-            php artisan key:generate
-            
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
